@@ -20,7 +20,8 @@ def login():
         for n in file:
                 data = n.split(" ")
                 if data[0] == username:
-                        password=int(input('Enter your 4 digit PIN password: '))
+                        
+                        password=input('Enter your 4 digit PIN password: ')
                         if password == data[1]:
                                 print('Login Successful ')
                         elif password != data[1]:
