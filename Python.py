@@ -1,3 +1,5 @@
+import os
+
 def createAccount():
         global username
         global password
@@ -7,11 +9,22 @@ def createAccount():
         initialDeposit = float(input('Initial Deposit: Enter your initial deposit: '))
 
 def login():
-        username=str(input('Enter your email: '))
-        password=int(input('Enter your 4 digit PIN password: '))
+        username=str(input('Enter your username: '))
+        file = open('./passwords.txt').read()
+        file=file.split("\n")
+        for n in file:
+                data = n.split(" ")
+                if username == data[0]:
+                        password=int(input('Enter your 4 digit PIN password: '))
+                        if password == data[1]:
+                                print('Login Successful ')
+                        elif password != data[1]:
+                                print('Incorrect Password ')
+                elif username != data[0]:
+                        print('This username does not exist')
+        
+        
+        
 
-x=input('1. Create new account  2. Login')
-if x == 1:
-        createAccount()
-elif x == 2:
-        login()
+
+login()
