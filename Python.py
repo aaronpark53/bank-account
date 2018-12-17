@@ -28,7 +28,12 @@ def login():
                                 print('Incorrect Password ')
                 elif username != data[0]:
                         print('This username does not exist')
+def initialDeposit():
+        print('Make an iniital deposit: ')
+        print('Select an account for the initial deposit: ')
+        x=input('1. 
 
+        
 def selectAccount():
         x=input('Select Account:  1. Chequing   2. Savings ')
         if x == 1:
