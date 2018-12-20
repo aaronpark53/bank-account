@@ -95,17 +95,21 @@ def withdraw():
 3. Go Back:
 Enter(1/2/3): '''))
                 if x==1:
-                        deposit=float(input('Input value of the withdrawal: '))
-                        if deposit <= chequingBalance:
-                                chequingBalance= chequingBalance - deposit
-                                print(chequingBalance)
+                        withdrawal=float(input('Input value of the withdrawal: '))
+                        if withdrawal <= chequingBalance:
+                                print('Current Chequing account balance: ', chequingBalance)
+                                chequingBalance= chequingBalance - withdrawal
+                                print('New Chequing account balance: ', chequingBalance)
+                                print('You have successfully withdrawn ', withdrawal, ' dollars')
                         else:
                                 print('Insufficient Funds.')
                 elif x==2:
-                        deposit=int(input('Input value of the withdrawal: '))
-                        if deposit <= savingsBalance:
-                                savingsBalance= savingsBalance - deposit
-                                print(savingsBalance)
+                        withdrawal=int(input('Input value of the withdrawal: '))
+                        if withdrawal <= savingsBalance:
+                                print('Current Savings account balance: ', savingsBalance)
+                                savingsBalance= savingsBalance - withdrawal
+                                print('New Savings account balance: ', savingsBalance)
+                                print('Your deposit of: ', withdrawal, 'dollars was successful')
                         else:
                                 print('Insufficient Funds.')
                 elif x==3:
@@ -118,23 +122,31 @@ Enter(1/2/3): '''))
 def deposit():
         global chequingBalance
         global savingsBalance
-        x=int(input('''Select account to deposit into:
+        n=True
+        while n==True:
+                x=int(input('''Select account to deposit into:
 1. Chequing
 2. Savings
 3. Go Back:
 Enter(1/2/3):  '''))
-        if x==1:
-                print('Current Chequing account balance: ', chequingBalance)
-                deposit=float(input('Input the value of your deposit: '))
-                chequingBalance=chequingBalance+deposit
-                print('New Chequing account balance: ', chequingBalance)
-        elif x==2:
-                print('Current Savings account balance: ', savingsBalance)
-                deposit=float(input('Input the value of your deposit: '))
-                savingsBalance=savingsBalance+deposit
-                print('New Savings account balance: ', savingsBalance)
+                if x==1:
+                        print('Current Chequing account balance: ', chequingBalance)
+                        deposit=float(input('Input the value of your deposit: '))
+                        chequingBalance=chequingBalance+deposit
+                        print('New Chequing account balance: ', chequingBalance)
+                        print('Your deposit of ', deposit, 'dollars was successful.')
+                elif x==2:
+                        print('Current Savings account balance: ', savingsBalance)
+                        deposit=float(input('Input the value of your deposit: '))
+                        savingsBalance=savingsBalance+deposit
+                        print('New Savings account balance: ', savingsBalance)
+                elif x==3:
+                        n=False
+                        break
+                else:
+                        print('That is not an option. Try again.')
 
-def transfer():
+def transferMoney():
         global chequingBalance
         global savingsBalance
         x=int(input('''Select option:
@@ -143,14 +155,54 @@ def transfer():
 3. Go Back             
 Enter(1/2/3):  '''))
         if x==1:
-                print('Current Chequing account balance: ',chequingAccount)
-                print('Current Savings account balance: ', savingsAccount)
+                print('Current Chequing account balance: ',chequingBalance)
+                print('Current Savings account balance: ', savingsBalance)
                 transferAmount=float(input('Input the value of the transfer: '))
-                
-start()
-withdraw()
-transfer()
+                if transferAmount > chequingBalance:
+                        print('Insufficient funds. ')
+                else:
+                        chequingBalance= chequingBalance-transferAmount
+                        savingsBalance=savingsBalance+transferAmount
+                        print('You have successfully transferred ', transferAmount, 'from Chequings to Savings.')
+                        print('''
+New Chequing account balance: ''', chequingBalance)
+                        print('New Savings account balance: ', savingsBalance)
+        elif x==2:
+                print('Current Savings account balance: ', savingsBalance)
+                print('Current Chequing account balance: ', chequingBalance)
+                transferAmount=float(input('Input the value of the transfer: '))
+                if transferAmount > savingsBalance:
+                        print('Insufficient funds. ')
+                else:
+                        chequingBalance= chequingBalance+transferAmount
+                        savingsBalance=savingsBalance-transferAmount
+                        print('You have successfully transferred ', transferAmount, 'from Savings to Chequing.')
+                        print('''
+New Savings account balance: ''', savingsBalance)
+                        print('New Chequing account balance: ', chequingBalance)
         
-
+                
+def option():
+        x=True
+        while x==True:
+                print('What would you like to do?')
+                print('1. Withdraw, 2. Deposit, 3. Transfer Money, 4.E-transfer, 5.Logout')
+                y=int(input('--->'))
+                if y==1:
+                        withdraw()
+                elif y==2:
+                        deposit()
+                elif y==3:
+                        transferMoney()
+                elif y==4:
+                        e-transfer()
+                elif y==5:
+                        print('Thank you for banking with bank')
+                        print('Bye bye now *waving hand*')
+                        break
+                
+chequingBalance=1000000
+savingsBalance=1000000
+option()
 
 
