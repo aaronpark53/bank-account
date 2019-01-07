@@ -8,6 +8,9 @@
 
 import os
 
+
+
+
 def start():
         print('Start: ')
         print('')
@@ -25,10 +28,7 @@ def start():
                         print('Try again')
 
 def createAccount():
-        global username
-        global password
-        global chequingBalance
-        global savingsBalance
+        
 
         chequingBalance=0
         savingsBalance=0
@@ -85,13 +85,6 @@ def login():
                                 x-=1
 
         
-def selectAccount():
-        x=input('Select Account:  1. Chequing   2. Savings ')
-        if x == 1:
-                print(chequingBalance)
-        elif x == 2:
-                print(savingsBalance)
-
 
 def option():
         x=True
@@ -118,130 +111,134 @@ def option():
 def printBalance():
         x=input('Select Account(1/2):  1. Chequing   2. Savings ')
         if x == 1:
-                print(chequingBalance)
+                print(data[2])
         elif x == 2:
-                print(savingsBalance)
+                print(data[3])
 
 
 
 def withdraw():
-        global chequingBalance
-        global savingsBalance
-        n=True
-        while n==True:
-                x=int(input('''Select account to withdraw from:
+        file = open('./passwords.txt').read()
+        file=file.split("\n")
+        for n in file:
+                        data = n.split(" ")
+                        n=True
+                        while n==True:
+                                x=int(input('''Select account to withdraw from:
 1. Chequing
 2. Savings
 3. Go Back:
 Enter(1/2/3): '''))
-                if x==1:
-                        deposit=float(input('Input value of the withdrawal: '))
-                        if deposit <= chequingBalance:
-                                chequingBalance= chequingBalance - deposit
-                                print(chequingBalance)
-                        else:
-                                print('Insufficient Funds.')
-                elif x==2:
-                        deposit=int(input('Input value of the withdrawal: '))
-                        if deposit <= savingsBalance:
-                                savingsBalance= savingsBalance - deposit
-                                print(savingsBalance)
-                        else:
-                                print('Insufficient Funds.')
-                elif x==3:
-                        n=False
-                        break
-                else:
-                        print('That is not an option. Try again. ')
+                                if x==1:
+                                        withdrawal=float(input('Input value of the withdrawal: '))
+                                        if withdrawal <= int(data[2]):
+                                                print('Current Chequing account balance: ', data[2])
+                                                data[2]= int(data[2]) - withdrawal
+                                                print('New Chequing account balance: ', data[2])
+                                                print('You have successfully withdrawn ', withdrawal, ' dollars')
+                                                return
+                                        else:
+                                                print('Insufficient Funds.')
+                                elif x==2:
+                                        withdrawal=int(input('Input value of the withdrawal: '))
+                                        if withdrawal <= int(data[3]):
+                                                print('Current Savings account balance: ', data[3])
+                                                data[3]= int(data[3]) - withdrawal
+                                                print('New Savings account balance: ', data[3])
+                                                print('Your deposit of: ', withdrawal, 'dollars was successful')
+                                                return
+                                        else:
+                                                print('Insufficient Funds.')
+                                elif x==3:
+                                        n=False
+                                        return
+                                else:
+                                        print('That is not an option. Try again. ')
 
 
 def deposit():
-        global chequingBalance
-        global savingsBalance
+        
         x=int(input('''Select account to deposit into:
 1. Chequing
 2. Savings
 3. Go Back:
 Enter(1/2/3):  '''))
         if x==1:
-                print('Current Chequing account balance: ', chequingBalance)
+                print('Current Chequing account balance: ', data[2])
                 deposit=float(input('Input the value of your deposit: '))
-                chequingBalance=chequingBalance+deposit
-                print('New Chequing account balance: ', chequingBalance)
+                data[2]=data[2]+deposit
+                print('New Chequing account balance: ', data[2])
         elif x==2:
-                print('Current Savings account balance: ', savingsBalance)
+                print('Current Savings account balance: ', data[3])
                 deposit=float(input('Input the value of your deposit: '))
-                savingsBalance=savingsBalance+deposit
-                print('New Savings account balance: ', savingsBalance)
+                data[3]=data[3]+deposit
+                print('New Savings account balance: ', data[3])
 
 
 
 
 def transfer():
-        global chequingBalance
-        global savingsBalance
+        
         x=int(input('''Select option:
 1. Chequing to Savings 
 2. Savings to Chequing 
 3. Go Back             
 Enter(1/2/3):  '''))
         if x==1:
-                print('Current Chequing account balance: ',chequingAccount)
-                print('Current Savings account balance: ', savingsAccount)
+                print('Current Chequing account balance: ',data[2])
+                print('Current Savings account balance: ', data[3])
                 transferAmount=float(input('Input the value of the transfer: '))
+                if transferAmount > data[2]:
+                        print('Insufficient funds. ')
+                else:
+                        data[2]= data[2]-transferAmount
+                        data[3]=data[3]+transferAmount
+                        print('You have successfully transferred ', transferAmount, 'from Chequings to Savings.')
+                        print('''
+New Chequing account balance: ''', data[2])
+                        print('New Savings account balance: ', data[3])
+        elif x==2:
+                print('Current Savings account balance: ', data[3])
+                print('Current Chequing account balance: ', data[2])
+                transferAmount=float(input('Input the value of the transfer: '))
+                if transferAmount > data[3]:
+                        print('Insufficient funds. ')
+                else:
+                        data[2]= data[2]+transferAmount
+                        data[3]=data[3]-transferAmount
+                        print('You have successfully transferred ', transferAmount, 'from Savings to Chequing.')
+                        print('''
+New Savings account balance: ''', data[3])
+                        print('New Chequing account balance: ', data[2])
 
 
 
 def eTransfer():
-        global chequingBalance
-        global savingsBalance
         file = open('./passwords.txt').read()
         file=file.split("\n")
-        for n in file:
-                data = n.split(" ")
-                name=input('Enter the username of the person you would like to E-Transfer money to:')
-                if name == data[0]:
-                        selectAccount()
-                        if x == 1:
+        y=True
+        while y==True:
+                for n in file:
+                        data = n.split(" ")
+                        name=input('Enter the username of the person you would like to E-Transfer money to:')
+                        if name == data[0]:
+                                print('You are sending money from your chequing account')
                                 money=input('How much money would you like to send to '+name+"?")
-                                if money>chequingBalance:
+                                if money>data[2]:
                                         print('Insufficient funds')
                                         return
-                                if money<chequingBalance:
-                                        account=input('Which account would you like to send money to?')
-                                        account=account.upper()
-                                        if account==CHEQUING:
-                                                data[2]= int(data[2]) +money
-                                                chequingBalance= int(chequingBalance) -money
-                                                print('You have successfully transfered $' +money+ ' to' +name)
-                                        elif account==SAVINGS:
-                                                data[3]= int(data[3]) +money
-                                                chequingBalance= int(chequingBalance) -money
-                                                print('You have successfully transfered $' +money+ ' to' +name)
-                                        else:
-                                                print('That is not an account, which bank do toy bank at?')
-                        if x == 2:
-                                money=input('How much money would you like to send to '+name+"?")
-                                if money>savingsBalance:
-                                        print('Insufficient funds')
-                                        return
-                                if money<savingsBalance:
-                                        account=input('Which account would you like to send money to?')
-                                        account=account.upper()
-                                        if account==CHEQUING:
-                                                data[2]= int(data[2]) +money
-                                                avingsBalance= int(savingsBalance) -money
-                                                print('You have successfully transfered $' +money+ ' to' +name)
-                                        elif account==SAVINGS:
-                                                data[3]= int(data[3]) +money
-                                                savingsBalance= int(savingsBalance) -money
-                                                print('You have successfully transfered $' +money+ ' to' +name)
-                                        else:
-                                                print('That is not an account, which bank do toy bank at?')
-                
-                elif name != data[0]:
-                        print('That account does not exist')
-                        return
+                                if money<data[2]:
+                                        data[2]= int(data[2]) +money
+                                        data[2]= int(data[2]) -money
+                                        print('You have successfully transfered $' +money+ ' to' +name)
+                                        y=False
+                                else:
+                                        print('That is not an account, which bank do toy bank at?')
+                                
+                        
+                        elif name != data[0]:
+                                print('That account does not exist')
+                                return
 
 start()
 option()
