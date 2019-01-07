@@ -200,9 +200,7 @@ def option():
                         print('Thank you for banking with bank')
                         print('Bye bye now *waving hand*')
                         break
-                
-chequingBalance=1000000
-savingsBalance=1000000
-option()
+
+
 
 
