@@ -68,7 +68,6 @@ def login():
                                 data = n.split(" ")
                                 if data[0] == username:
                                         exists = True
-        
                                         while password==True and x>0:
                                                 password=input('Enter your 4 digit PIN password: ')
                                                 if password == data[1]:
