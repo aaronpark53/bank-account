@@ -181,12 +181,21 @@ New Chequing account balance: ''', chequingBalance)
 New Savings account balance: ''', savingsBalance)
                         print('New Chequing account balance: ', chequingBalance)
         
+def checkBalance():
+        print('Chequing Balance: ',chequingBalance)
+        print('Savings Balance: ',savingsBalance)
                 
 def option():
         x=True
         while x==True:
                 print('What would you like to do?')
-                print('1. Withdraw, 2. Deposit, 3. Transfer Money, 4.E-transfer, 5.Logout')
+                print('''1. Withdraw
+2. Deposit
+3. Transfer Money
+4. E-transfer
+5. Check B
+alance
+6. Logout''')
                 y=int(input('--->'))
                 if y==1:
                         withdraw()
@@ -197,10 +206,16 @@ def option():
                 elif y==4:
                         e-transfer()
                 elif y==5:
+                        checkBalance()
+                elif y==6:
                         print('Thank you for banking with bank')
                         print('Bye bye now *waving hand*')
                         break
 
+start()
+file = open('./passwords.txt', 'r')
+print .readline(): 
 
 
+option()
 
