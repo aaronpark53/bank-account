@@ -36,14 +36,16 @@ def createAccount():
         global username
         global password
         global chequingBalance
+        global passwordLocation
         global savingsBalance #global variables that are used in other functions
         chequingBalance=0
         savingsBalance=0 #setting the balance of both accounts to 0.
         username = input('Create a username: ')
-        password = str(input('Password: Enter your 4 digit PIN number *Your password cannot start with 0*: ')) #creating a username and password
-        if int(password) >=10000 or int(password) <=999:
+        password = str(input('Password: Enter your 4 digit PIN number: ')) #creating a username and password
+        if len(password) != 4:
                 print("That's not 4, can you count?????")
                 start() #if the password is not 4 digits, the user will go back to the start screen
+                return
         print('Make an initial deposit. Select an account: ')
         print('')
         x=int(input('(1/2):   1. Chequing  2. Savings '))
@@ -62,6 +64,10 @@ def createAccount():
         f = open('passwords.txt', 'a') #opening the file
         f.write(username+ ' ' +password+ ' ' +str(chequingBalance) + ' ' + str(savingsBalance) + '\n') #this adds all their information to the passwords file
         f.close()
+
+        file = open('./passwords.txt').read()
+        file=file.split("\n")[:-1]
+        passwordLocation = len(file)-1
         return #returning to the options function
                                   
 
@@ -131,6 +137,7 @@ def option(): #this is the main function of the program, it directs the user to 
 def withdraw():
         global chequingBalance
         global savingsBalance #global variables that are used in other functions
+        global passwordLocation
         n=True
         while n==True:
                 x=int(input('''Select account to withdraw from:
@@ -172,6 +179,7 @@ Enter(1/2/3): ''')) #this is where the user selects which account they want to w
 def deposit():
         global chequingBalance
         global savingsBalance #global variables that are used in other functions
+        global passwordLocation
         n=True
         while n==True:
                 x=int(input('''Select account to deposit into:
@@ -272,7 +280,7 @@ def update(): #this is a function that updates the info in the passwords file an
         
         f.write(username+ ' ' +password+ ' ' +str(chequingBalance) + ' ' + str(savingsBalance) + '\n')
         f.close() #all the updated account data is written into the newest line then the file is closed
-        
+
         passwordLocation = len(file)-1 # the new location is updated
                 
 
