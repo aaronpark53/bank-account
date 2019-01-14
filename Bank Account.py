@@ -40,7 +40,7 @@ def createAccount():
         chequingBalance=0
         savingsBalance=0 #setting the balance of both accounts to 0.
         username = input('Create a username: ')
-        password = str(input('Password: Enter your 4 digit PIN number: ')) #creating a username and password
+        password = str(input('Password: Enter your 4 digit PIN number *Your password cannot start with 0*: ')) #creating a username and password
         if int(password) >=10000 or int(password) <=999:
                 print("That's not 4, can you count?????")
                 start() #if the password is not 4 digits, the user will go back to the start screen
